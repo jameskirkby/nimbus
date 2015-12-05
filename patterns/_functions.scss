@@ -1,0 +1,10 @@
+/*------------------------------------*\
+    # FUNCTIONS
+\*------------------------------------*/
+
+/**
+ * returns pixel font size in rem
+ **/
+@function rem($pixels) {
+    @return $pixels / $base-font-size + rem;
+}

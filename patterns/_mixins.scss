@@ -1,0 +1,232 @@
+/*------------------------------------*\
+    # MIXINS
+\*------------------------------------*/
+
+/**
+ * cf
+ * clearfix, for elements with floated children
+ **/
+@mixin cf {
+    &:after {
+        content: '';
+        display: table;
+        width: 100%;
+        clear: both;
+    }
+}
+
+
+
+/**
+ * cl
+ * override default ul list style
+ **/
+@mixin cl {
+    margin-bottom: 0;
+    margin-left: 0;
+
+    > li {
+        list-style: none;
+    }
+}
+
+
+
+/**
+ * Font Face
+ * from http://bourbon.io/docs/#font-face
+ **/
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+    @font-face {
+        font-family: $font-family;
+        font-weight: $weight;
+        font-style: $style;
+        src: url('#{$file-path}.eot');
+        src: url('#{$file-path}.eot?#iefix')               format('embedded-opentype'),
+             url('#{$file-path}.woff')                     format('woff'),
+             url('#{$file-path}.ttf')                      format('truetype'),
+             url('#{$file-path}.svg##{$font-family}')      format('svg');
+    }
+}
+
+/**
+ * letter-spacing
+ * converts the Photoshop letter spacing value to an em value
+ **/
+@mixin letter-spacing($va) {
+    letter-spacing: $va / 1000 + em;
+}
+
+/**
+ * middle
+ * vertically or horizontally align content
+ **/
+@mixin middle($axis:'', $position:relative) {
+    position: $position;
+
+    @if $axis == y {
+        top: 50%;
+        transform: translateY(-50%);
+    } @else if $axis == x {
+        left: 50%;
+        transform: translateX(-50%);
+    } @else {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+
+
+/**
+ * Apply CSS to input placeholders
+ * from http://bourbon.io/docs/#placeholder
+
+input {
+    width: 300px;
+
+    @include placeholder {
+        color: red;
+    }
+}
+ **/
+@mixin placeholder {
+    $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+    @each $placeholder in $placeholders {
+        &:#{$placeholder}-placeholder {
+            @content;
+        }
+    }
+}
+
+
+
+/**
+ * Responsive Text
+ * from http://simplaio.github.io/rucksack/docs/#responsive-type
+ * For when you want your text to scale with the viewport width
+ * all arguments take a pixel value
+ * $min-width: the minimum viewport width you want your text to start scaling
+ * $max-width: the maximum viewport width you want your text to stop scaling
+ * $min-size: the minimum font-size to start scaling with
+ * $max-size: the maximum font-size to finish scaling with
+ *
+ * In the exmaple below, the font-size will be 15px at 400px viewport width
+ * and it will scale up to 30px at 800px viewport width
+
+.body-text {
+    @include responsive-text(400px, 800px, 15px, 30px);
+}
+ **/
+@mixin responsive-text($min-width, $max-width, $min-size, $max-size) {
+    $min-width-value: ($max-size - $min-size) / ($max-width - $min-width);
+    $vw-value: (($max-size - $min-size) / ($max-width - $min-width) * 100) + vw;
+
+    font-size: $max-size - ($min-size / 2); // fallback
+    font-size: calc((#{$min-size} - #{$min-width} * #{$min-width-value}) + #{$vw-value});
+
+    @media screen and (max-width: $min-width) {
+        font-size: $min-size;
+    }
+
+    @media screen and (min-width: $max-width) {
+        font-size: $max-size;
+    }
+}
+
+
+
+/*
+ * makes a CSS triangle
+ * from http://bourbon.io/docs/#triangle
+
+@include triangle(12px, gray, down);
+@include triangle(12px 6px, gray lavender, up-left);
+ **/
+@mixin triangle($size, $color, $direction) {
+    height: 0;
+    width: 0;
+
+    $width: nth($size, 1);
+    $height: nth($size, length($size));
+
+    $foreground-color: nth($color, 1);
+    $background-color: transparent !default;
+    @if (length($color) == 2) {
+        $background-color: nth($color, 2);
+    }
+
+    @if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+
+        $width: $width / 2;
+        $height: if(length($size) > 1, $height, $height/2);
+
+        @if $direction == up {
+            border-left: $width solid $background-color;
+            border-right: $width solid $background-color;
+            border-bottom: $height solid $foreground-color;
+
+        } @else if $direction == right {
+            border-top: $width solid $background-color;
+            border-bottom: $width solid $background-color;
+            border-left: $height solid $foreground-color;
+
+        } @else if $direction == down {
+            border-left: $width solid $background-color;
+            border-right: $width solid $background-color;
+            border-top: $height solid $foreground-color;
+
+        } @else if $direction == left {
+            border-top: $width solid $background-color;
+            border-bottom: $width solid $background-color;
+            border-right: $height solid $foreground-color;
+        }
+    }
+
+    @else if ($direction == up-right) or ($direction == up-left) {
+        border-top: $height solid $foreground-color;
+
+        @if $direction == up-right {
+            border-left:  $width solid $background-color;
+
+        } @else if $direction == up-left {
+            border-right: $width solid $background-color;
+        }
+    }
+
+    @else if ($direction == down-right) or ($direction == down-left) {
+        border-bottom: $height solid $foreground-color;
+
+        @if $direction == down-right {
+            border-left:  $width solid $background-color;
+
+        } @else if $direction == down-left {
+            border-right: $width solid $background-color;
+        }
+    }
+
+    @else if ($direction == inset-up) {
+        border-width: $height $width;
+        border-style: solid;
+        border-color: $background-color $background-color $foreground-color;
+    }
+
+    @else if ($direction == inset-down) {
+        border-width: $height $width;
+        border-style: solid;
+        border-color: $foreground-color $background-color $background-color;
+    }
+
+    @else if ($direction == inset-right) {
+        border-width: $width $height;
+        border-style: solid;
+        border-color: $background-color $background-color $background-color $foreground-color;
+    }
+
+    @else if ($direction == inset-left) {
+        border-width: $width $height;
+        border-style: solid;
+        border-color: $background-color $foreground-color $background-color $background-color;
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "name": "nimbus",
+    "version": "1.0",
+    "main": "_nimbus.scss",
+    "ignore": []
+}

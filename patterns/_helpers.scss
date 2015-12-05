@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    # HELPER STYLES
+\*------------------------------------*/
+
+
+/**
+ * add .img--full to the img parent
+ * it will be full width for non-admins
+ * normal width for admins, so the crop tool isn't broken
+ **/
+.img--full {
+    > img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
