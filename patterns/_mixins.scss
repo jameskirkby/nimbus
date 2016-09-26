@@ -3,6 +3,15 @@
 \*------------------------------------*/
 
 /**
+ * background-svg
+ * svg as background image
+ **/
+@mixin background-svg($filename) {
+    background-image: url('../img/svg/#{$filename}.svg');
+    background-repeat: no-repeat;
+}
+
+/**
  * cf
  * clearfix, for elements with floated children
  **/
