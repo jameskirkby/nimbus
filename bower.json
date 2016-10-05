@@ -1,7 +1,6 @@
 {
     "name": "nimbus",
     "description": "A collection of SCSS mixins, functions and rules",
-    "version": "1.0",
     "main": "_nimbus.scss",
     "ignore": [],
     "repository": {
