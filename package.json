@@ -1,0 +1,19 @@
+{
+  "name": "nimbus-scss",
+  "version": "1.2.2",
+  "description": "A collection of SCSS mixins, functions and rules",
+  "main": "_nimbus.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jameskirkby/nimbus.git"
+  },
+  "author": "James Kirkby <james@jkirkby.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jameskirkby/nimbus/issues"
+  },
+  "homepage": "https://github.com/jameskirkby/nimbus#readme"
+}

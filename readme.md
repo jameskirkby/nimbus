@@ -11,6 +11,14 @@ To include in your SCSS:
 
 ## Installation
 
+With bower:
+
 ```
 bower install --save nimbus
+```
+
+With npm:
+
+```
+npm install --save nimbus-scss
 ```
